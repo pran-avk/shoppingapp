@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-
-import 'package:shoppingapp/Rotatingimage/rotatingimage.dart';
+import 'dart:math';
 
 class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
@@ -38,204 +36,45 @@ class _MainpageState extends State<Mainpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top bar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'ShopEase',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontFamily: 'PoetsenOne',
-                    ),
-                  ),
-                  const SizedBox(width: 40),
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: const Row(
-                        children: [
-                          Icon(Icons.search_rounded),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: 'Search',
-                                border: InputBorder.none,
-                                isDense: true,
-                                contentPadding: EdgeInsets.only(bottom: 12),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 30),
-                  InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: const [
-                        Icon(Icons.person),
-                        SizedBox(width: 10),
-                        Text(
-                          'Profile',
-                          style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 30),
-                  InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: const [
-                        Icon(Icons.shopping_cart),
-                        SizedBox(width: 10),
-                        Text(
-                          'Cart',
-                          style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 30),
-                  InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: const [
-                        Icon(Icons.store_mall_directory_rounded),
-                        SizedBox(width: 10),
-                        Text(
-                          'Become a seller',
-                          style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              const Text(
+                'Fruits List',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-
-              const SizedBox(height: 40),
-
-              // Scrollable image row
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Left Image
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://ik.imagekit.io/jyxcfhgon/flutter/20250523_2033_Fruit%20Salad%20Delight_simple_compose_01jvytkxx1f5wb9p6b0dmk5883.png?updatedAt=1748013427688',
-                        width: 224,
-                        height: 336,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 50),
-
-                    // Rotating images in the middle
-                    SizedBox(
-                      width: 504,
-                      height: 336,
-                      child: const RotatingImageRow(),
-                    ),
-
-                    const SizedBox(width: 50),
-
-                    // Right Image
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://ik.imagekit.io/jyxcfhgon/flutter/20250523_2048_Fruit%20Salad%20Packet_simple_compose_01jvyvfrefe6vs9cecsf4n87h0.png?updatedAt=1748013967612',
-                        width: 224,
-                        height: 336,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Fruits List',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-
               const SizedBox(height: 20),
-
-              SizedBox(
-                height: 500, // fixed height container for grid
+              Expanded(
                 child: GridView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: fruits.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // 2 columns
-                    crossAxisSpacing: 16, // horizontal space between tiles
-                    mainAxisSpacing: 16, // vertical space between tiles
-                    childAspectRatio: 3 / 2, // width / height ratio of each tile
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 3 / 4,
                   ),
                   itemBuilder: (context, index) {
                     final fruit = fruits[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16), // rounded corners
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 6,
-                            offset: Offset(0, 3),
-                          )
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              bottomLeft: Radius.circular(16),
-                            ),
-                            child: Image.network(
-                              fruit['url']!,
-                              width: 100,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FruitBuyPage(
+                              name: fruit['name']!,
+                              imageUrl: fruit['url']!,
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              fruit['name']!,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          fruit['url']!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     );
                   },
@@ -243,6 +82,167 @@ class _MainpageState extends State<Mainpage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class FruitBuyPage extends StatefulWidget {
+  final String name;
+  final String imageUrl;
+
+  const FruitBuyPage({
+    super.key,
+    required this.name,
+    required this.imageUrl,
+  });
+
+  @override
+  State<FruitBuyPage> createState() => _FruitBuyPageState();
+}
+
+class _FruitBuyPageState extends State<FruitBuyPage> {
+  int quantity = 1;
+  late final double price;
+  late final String seller;
+
+  final List<String> sellers = [
+    'FreshFruits Inc.',
+    'Tropical Traders',
+    'Nature\'s Best',
+    'Fruitopia',
+    'Green Valley',
+  ];
+
+  // Placeholder nutrient image URL for all fruits (replace with actual URLs if you want)
+  final String nutrientsImageUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/0/0b/Nutrition_facts.svg';
+
+  @override
+  void initState() {
+    super.initState();
+    final random = Random();
+    price = (random.nextDouble() * 150 + 50).roundToDouble(); // ₹50 - ₹200 approx
+    seller = sellers[random.nextInt(sellers.length)];
+  }
+
+  void increment() {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  void decrement() {
+    if (quantity > 1) {
+      setState(() {
+        quantity--;
+      });
+    }
+  }
+
+  void buy() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Bought $quantity x ${widget.name} for ₹${(price * quantity).toStringAsFixed(2)} from $seller!',
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Buy ${widget.name}'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.network(
+                widget.imageUrl,
+                height: 220,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.network(
+                nutrientsImageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.contain,
+                color: Colors.green[700],
+                colorBlendMode: BlendMode.modulate,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              widget.name,
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Seller: $seller',
+              style: const TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Price: ₹${price.toStringAsFixed(2)} per unit',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 30),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: decrement,
+                  child: const Icon(Icons.remove),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(12),
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  quantity.toString(),
+                  style: const TextStyle(fontSize: 24),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: increment,
+                  child: const Icon(Icons.add),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(12),
+                  ),
+                ),
+              ],
+            ),
+
+            const Spacer(),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: buy,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  child: Text(
+                    'Buy',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
